@@ -1,14 +1,39 @@
+// Les commentaire montre le une version possiblement plus courte :
 const HEADER = document.getElementsByTagName("header")[0];
 const MAIN = document.getElementsByTagName("main")[0];
+// document.getElementsByTagName("h1")[0];
 const TITLE = HEADER.getElementsByTagName("h1")[0];
+// document.getElementsByTagName("img")[0];
 const ICONHEADER = HEADER.getElementsByTagName("img")[0];
+// document.getElementsByTagName("img")[1];
 const ICONMAIN = MAIN.getElementsByTagName("img")[0];
 const TASKLIST = document.getElementsByTagName("article")[0];
+// document.getElementsByTagName("input")[0];
 const ADDTODO = MAIN.getElementsByTagName("input")[0];
 
 //Création du titre avec la date
 const MYDATE = new Date();
 TITLE.innerText = MYDATE.toLocaleString('en-EN', { weekday: 'long' })+", "+MYDATE.toLocaleString('en-EN', { month: 'short'})+" "+MYDATE.getDate();
+
+function unCheckList(MYCHECKTASK, MYLABEL) {
+    MYCHECKTASK.src = "";
+    MYLABEL.style.textDecoration = "none";
+    MYLABEL.style.color = "black";
+    MYCHECKTASK.addEventListener('click', function test() { 
+        checkList(MYCHECKTASK, MYLABEL);
+    });
+    MYCHECKTASK.removeEventListener('click', test1);
+}
+
+function checkList(MYCHECKTASK, MYLABEL) {
+    MYCHECKTASK.src = "assets/check.svg";
+    MYLABEL.style.textDecoration = "line-through";
+    MYLABEL.style.color = "lightgray";
+    MYCHECKTASK.addEventListener('click', function test1() { 
+        unCheckList(MYCHECKTASK, MYLABEL);  
+    });
+    MYCHECKTASK.removeEventListener('click', test);
+}
 
 // Ajout evenement sur les boutons
 ICONHEADER.addEventListener('click', () => {
@@ -24,10 +49,8 @@ ICONMAIN.addEventListener('click', () => {
         MYLABEL.innerText = ADDTODO.value;
         MYPICTURE.src = "assets/trash.svg";
         ADDTODO.value = "";
-        MYCHECKTASK.addEventListener('click', () => {
-            MYCHECKTASK.src = "assets/check.svg";
-            MYLABEL.style.textDecoration = "line-through";
-            MYLABEL.style.color = "lightgray";
+        MYCHECKTASK.addEventListener('click', function test() { 
+            checkList(MYCHECKTASK, MYLABEL);
         });
         MYPICTURE.addEventListener('click', () => {
             TASKLIST.removeChild(MYELEMENT);
