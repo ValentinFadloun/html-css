@@ -1,0 +1,58 @@
+body {
+    margin: auto;
+}
+
+body > header {
+    text-align: center;
+}
+
+body > main {
+    width: 60%;
+    padding: 20px 0 15px;
+    margin: auto;
+    text-align: center;
+    background-color: #92A399;
+}
+
+body > main > img {
+    width: 25%;
+    border-radius: 50%;
+}
+
+body > main > form {
+    text-align: left;
+}
+
+body > main > form > * {
+    display: block;
+    margin: auto;
+}
+
+body > main > form > label {
+    margin-top: 10px;
+    margin-left: 15%;
+}
+
+body > main > form > input:not([type="submit"]) {
+    width: 70%;
+}
+
+body > main > form > input[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 7px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.4);
+    outline: none;
+    border: none;
+    background-color: green;
+    color: white;
+}
+
+body > footer {
+    background-color: lightgray;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 13px;
+    text-align: center;
+}
