@@ -64,6 +64,14 @@ body > main > article:nth-of-type(1) > section > img:first-of-type {
 
 body > main > article:nth-of-type(1) > section > label {
     margin-left: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+body > main > article:nth-of-type(1) > section > label.check {
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: lightgray;
 }
 
 body > main > article:nth-of-type(1) > section > img:nth-of-type(2) {
