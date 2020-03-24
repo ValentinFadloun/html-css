@@ -58,6 +58,18 @@ ICONMAIN.addEventListener('click', () => {
         MYELEMENT.appendChild(MYCHECKTASK);
         MYELEMENT.appendChild(MYLABEL);
         MYELEMENT.appendChild(MYPICTURE);
+        if (!localStorage.getItem("listTask")){
+            localStorage.setItem("listTask","<section>"+MYELEMENT.innerHTML+"</section>");
+        }else{
+            let mem = localStorage.getItem("listTask");
+            mem += "<section>"+MYELEMENT.innerHTML+"</section>";
+            localStorage.setItem("listTask",mem);
+        }
+        // Ajout de l'element a la liste de taches
         TASKLIST.appendChild(MYELEMENT);
     }
 });
+
+if (localStorage.getItem("listTask")){    
+    TASKLIST.innerHTML = localStorage.getItem("listTask");
+}
