@@ -23,6 +23,7 @@ function unCheckList(MYCHECKTASK, MYLABEL) {
     MYCHECKTASK.addEventListener('click', function test() { 
         checkList(MYCHECKTASK, MYLABEL);
     });
+    updateLocalStorage();
     MYCHECKTASK.removeEventListener('click', test1);
 }
 
@@ -33,6 +34,7 @@ function checkList(MYCHECKTASK, MYLABEL) {
     MYCHECKTASK.addEventListener('click', function test1() { 
         unCheckList(MYCHECKTASK, MYLABEL);  
     });
+    updateLocalStorage();
     MYCHECKTASK.removeEventListener('click', test);
 }
 
@@ -43,9 +45,16 @@ function refreshEvent() {
         const MYCHECKTASK = TASKS[i].getElementsByTagName("img")[0];
         const MYLABEL = TASKS[i].getElementsByTagName("label")[0];
         const MYPICTURE = TASKS[i].getElementsByTagName("img")[1];
-        MYCHECKTASK.addEventListener('click', () => {
-            checkList(MYCHECKTASK, MYLABEL);
-        });
+        if (MYLABEL.className == "check"){
+            MYCHECKTASK.addEventListener('click', () => {
+                unCheckList(MYCHECKTASK, MYLABEL);
+            });
+        }else {
+            MYCHECKTASK.addEventListener('click', () => {
+                checkList(MYCHECKTASK, MYLABEL);
+            });
+        }
+        
         let mem = TASKS[i];
         MYPICTURE.addEventListener('click', () => {
             TASKLIST.removeChild(mem);
@@ -82,6 +91,7 @@ function updateLocalStorage() {
 // Event de pour supprimer une tache
 ICONHEADER.addEventListener('click', () => {
     TASKLIST.innerHTML = "";
+    updateLocalStorage();
 });
 
 //Event ajout de tache
