@@ -9,26 +9,11 @@ const MYDATE = new Date();
 TITLE.innerText = MYDATE.toLocaleString('en-EN', { weekday: 'long' })+", "+MYDATE.toLocaleString('en-EN', { month: 'short'})+" "+MYDATE.getDate();
 
 // Création des fonctions
-// un check l'element selectionné
-function unCheckList(MYCHECKTASK, MYLABEL) {
-    MYCHECKTASK.src = "";
-    MYLABEL.classList.remove("check");
-    MYCHECKTASK.addEventListener('click', function test() { 
-        checkList(MYCHECKTASK, MYLABEL);
-    });
+// check et uncheck une tache
+function utlimCheck(MYCHECKTASK, MYLABEL) {
+    (MYLABEL.classList == "check") ? MYCHECKTASK.src = "" : MYCHECKTASK.src = "assets/check.svg";
+    MYLABEL.classList.toggle("check");
     updateLocalStorage();
-    MYCHECKTASK.removeEventListener('click', test1);
-}
-
-// check l'élement selectionné
-function checkList(MYCHECKTASK, MYLABEL) {
-    MYCHECKTASK.src = "assets/check.svg";
-    MYLABEL.classList.add("check");
-    MYCHECKTASK.addEventListener('click', function test1() { 
-        unCheckList(MYCHECKTASK, MYLABEL);  
-    });
-    updateLocalStorage();
-    MYCHECKTASK.removeEventListener('click', test);
 }
 
 // Ajout des event a chaque bouton de la liste des taches
@@ -38,16 +23,9 @@ function refreshEvent() {
         const MYCHECKTASK = TASKS[i].getElementsByTagName("img")[0];
         const MYLABEL = TASKS[i].getElementsByTagName("label")[0];
         const MYPICTURE = TASKS[i].getElementsByTagName("img")[1];
-        if (MYLABEL.className == "check"){
-            MYCHECKTASK.addEventListener('click', () => {
-                unCheckList(MYCHECKTASK, MYLABEL);
-            });
-        }else {
-            MYCHECKTASK.addEventListener('click', () => {
-                checkList(MYCHECKTASK, MYLABEL);
-            });
-        }
-        
+        MYCHECKTASK.addEventListener('click', () => {
+            utlimCheck(MYCHECKTASK, MYLABEL);
+        });
         let mem = TASKS[i];
         MYPICTURE.addEventListener('click', () => {
             TASKLIST.removeChild(mem);
@@ -56,24 +34,12 @@ function refreshEvent() {
     }
 }
 
-// Met en mémoire la tache
-function goToLocalStorage(MYELEMENT) {
-    if (!localStorage.getItem("listTask")){
-        localStorage.setItem("listTask","<section>"+MYELEMENT.innerHTML+"</section>");
-    }else{
-        let mem = localStorage.getItem("listTask");
-        mem += "<section>"+MYELEMENT.innerHTML+"</section>";
-        localStorage.setItem("listTask",mem);
-    }
-}
  // Met a jour le localstorage
 function updateLocalStorage() {
     localStorage.clear();
     const TASKS = document.getElementsByTagName("section");
     localStorage.setItem("listTask", "");
     for (let i = 0; i < TASKS.length; i++) {
-        console.log(TASKS[i].innerHTML);
-        
         let mem = localStorage.getItem("listTask");
         mem += "<section>"+TASKS[i].innerHTML+"</section>";
         localStorage.setItem("listTask",mem);
@@ -92,9 +58,9 @@ function addNewTask() {
         MYELEMENT.appendChild(MYCHECKTASK);
         MYELEMENT.appendChild(MYLABEL);
         MYELEMENT.appendChild(MYPICTURE);
-        goToLocalStorage(MYELEMENT);
         // Ajout de l'element a la liste de taches
         TASKLIST.appendChild(MYELEMENT);
+        updateLocalStorage();
         refreshEvent();
     }
 }
