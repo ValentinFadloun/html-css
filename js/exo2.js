@@ -24,9 +24,12 @@ function refreshEvent() {
         const MYCHECKTASK = TASKS[i].getElementsByTagName("img")[0];
         const MYLABEL = TASKS[i].getElementsByTagName("label")[0];
         const MYPICTURE = TASKS[i].getElementsByTagName("img")[1];
-        MYCHECKTASK.addEventListener('click', () => {
-            utlimCheck(MYCHECKTASK, MYLABEL);
-        });
+        if(!MYCHECKTASK.getAttribute('listener')){
+            MYCHECKTASK.addEventListener('click', function test() {
+                utlimCheck(MYCHECKTASK, MYLABEL);
+            });
+            MYCHECKTASK.setAttribute('listener', 'true');
+        }
         let mem = TASKS[i];
         MYPICTURE.addEventListener('click', () => {
             TASKLIST.removeChild(mem);
@@ -49,21 +52,10 @@ function updateLocalStorage() {
 
 function addNewTask() {
     if(ADDTODO.value != ""){
-        /*const MYELEMENT = document.createElement("section");
-        const MYLABEL = document.createElement("label");
-        const MYPICTURE = document.createElement("img");
-        MYLABEL.innerText = ADDTODO.value;
-        MYPICTURE.src = "assets/trash.svg";
-        ADDTODO.value = "";*/
         TASKLIST.insertAdjacentHTML("beforeend",
         `
             <section><img><label>${ADDTODO.value}</label><img src="assets/trash.svg"></section>
         `);
-        /*MYELEMENT.appendChild(document.createElement("img"));
-        MYELEMENT.appendChild(MYLABEL);
-        MYELEMENT.appendChild(MYPICTURE);
-        // Ajout de l'element a la liste de taches
-        TASKLIST.appendChild(MYELEMENT);*/
         refreshEvent();
         updateLocalStorage();
     }
