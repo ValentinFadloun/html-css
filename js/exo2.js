@@ -20,7 +20,6 @@ TITLE.innerText = MYDATE.toLocaleString('en-EN', { weekday: 'long' })+", "+MYDAT
 function unCheckList(MYCHECKTASK, MYLABEL) {
     MYCHECKTASK.src = "";
     MYLABEL.classList.remove("check");
-    console.log("ala2");
     MYCHECKTASK.addEventListener('click', function test() { 
         checkList(MYCHECKTASK, MYLABEL);
     });
@@ -30,7 +29,6 @@ function unCheckList(MYCHECKTASK, MYLABEL) {
 // check l'élement selectionné
 function checkList(MYCHECKTASK, MYLABEL) {
     MYCHECKTASK.src = "assets/check.svg";
-    console.log(MYCHECKTASK);
     MYLABEL.classList.add("check");
     MYCHECKTASK.addEventListener('click', function test1() { 
         unCheckList(MYCHECKTASK, MYLABEL);  
@@ -46,18 +44,18 @@ function refreshEvent() {
         const MYLABEL = TASKS[i].getElementsByTagName("label")[0];
         const MYPICTURE = TASKS[i].getElementsByTagName("img")[1];
         MYCHECKTASK.addEventListener('click', () => {
-            console.log('go');
             checkList(MYCHECKTASK, MYLABEL);
         });
         let mem = TASKS[i];
         MYPICTURE.addEventListener('click', () => {
             TASKLIST.removeChild(mem);
+            updateLocalStorage();
         });
     }
 }
 
 // Met en mémoire la tache
-function goToLocalStorage(MYELEMENT){
+function goToLocalStorage(MYELEMENT) {
     if (!localStorage.getItem("listTask")){
         localStorage.setItem("listTask","<section>"+MYELEMENT.innerHTML+"</section>");
     }else{
@@ -66,13 +64,27 @@ function goToLocalStorage(MYELEMENT){
         localStorage.setItem("listTask",mem);
     }
 }
+ // Met a jour le localstorage
+function updateLocalStorage() {
+    localStorage.clear();
+    const TASKS = document.getElementsByTagName("section");
+    localStorage.setItem("listTask", "");
+    for (let i = 0; i < TASKS.length; i++) {
+        console.log(TASKS[i].innerHTML);
+        
+        let mem = localStorage.getItem("listTask");
+        mem += "<section>"+TASKS[i].innerHTML+"</section>";
+        localStorage.setItem("listTask",mem);
+    }
+}
 
 // Ajout evenement sur les boutons
+// Event de pour supprimer une tache
 ICONHEADER.addEventListener('click', () => {
     TASKLIST.innerHTML = "";
-    localStorage.clear();
 });
 
+//Event ajout de tache
 ICONMAIN.addEventListener('click', () => {
     if(ADDTODO.value != ""){
         const MYELEMENT = document.createElement("section");
