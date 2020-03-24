@@ -1,15 +1,8 @@
-// Les commentaire montre le une version possiblement plus courte :
-const HEADER = document.getElementsByTagName("header")[0];
-const MAIN = document.getElementsByTagName("main")[0];
-// document.getElementsByTagName("h1")[0];
-const TITLE = HEADER.getElementsByTagName("h1")[0];
-// document.getElementsByTagName("img")[0];
-const ICONHEADER = HEADER.getElementsByTagName("img")[0];
-// document.getElementsByTagName("img")[1];
-const ICONMAIN = MAIN.getElementsByTagName("img")[0];
+const TITLE = document.getElementsByTagName("h1")[0];
+const ICONHEADER = document.getElementsByTagName("img")[0];
+const ICONMAIN = document.getElementsByTagName("img")[1];
 const TASKLIST = document.getElementsByTagName("article")[0];
-// document.getElementsByTagName("input")[0];
-const ADDTODO = MAIN.getElementsByTagName("input")[0];
+const ADDTODO = document.getElementsByTagName("input")[0];
 
 //Création du titre avec la date
 const MYDATE = new Date();
@@ -87,15 +80,7 @@ function updateLocalStorage() {
     }
 }
 
-// Ajout evenement sur les boutons
-// Event de pour supprimer une tache
-ICONHEADER.addEventListener('click', () => {
-    TASKLIST.innerHTML = "";
-    updateLocalStorage();
-});
-
-//Event ajout de tache
-ICONMAIN.addEventListener('click', () => {
+function addNewTask() {
     if(ADDTODO.value != ""){
         const MYELEMENT = document.createElement("section");
         const MYCHECKTASK = document.createElement("img");
@@ -112,7 +97,25 @@ ICONMAIN.addEventListener('click', () => {
         TASKLIST.appendChild(MYELEMENT);
         refreshEvent();
     }
+}
+
+// Ajout evenement sur les boutons
+// Event de pour supprimer une tache
+ICONHEADER.addEventListener('click', () => {
+    TASKLIST.innerHTML = "";
+    updateLocalStorage();
 });
+
+//Event ajout de tache
+ICONMAIN.addEventListener('click', () => {
+    addNewTask();
+});
+
+ADDTODO.onkeypress = (e) => {
+    if(e.which == 13) {
+        addNewTask();
+    }
+}
 
 // Suite des instruction apres ajout des event
 if (localStorage.getItem("listTask")){    
