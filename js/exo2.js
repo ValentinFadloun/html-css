@@ -12,6 +12,7 @@ TITLE.innerText = MYDATE.toLocaleString('en-EN', { weekday: 'long' })+", "+MYDAT
 // check et uncheck une tache
 function utlimCheck(MYCHECKTASK, MYLABEL) {
     (MYLABEL.classList == "check") ? MYCHECKTASK.src = "" : MYCHECKTASK.src = "assets/check.svg";
+    (MYLABEL.classList == "check") ? console.log("uncheck") : console.log("check");
     MYLABEL.classList.toggle("check");
     updateLocalStorage();
 }
@@ -48,20 +49,23 @@ function updateLocalStorage() {
 
 function addNewTask() {
     if(ADDTODO.value != ""){
-        const MYELEMENT = document.createElement("section");
-        const MYCHECKTASK = document.createElement("img");
+        /*const MYELEMENT = document.createElement("section");
         const MYLABEL = document.createElement("label");
         const MYPICTURE = document.createElement("img");
         MYLABEL.innerText = ADDTODO.value;
         MYPICTURE.src = "assets/trash.svg";
-        ADDTODO.value = "";
-        MYELEMENT.appendChild(MYCHECKTASK);
+        ADDTODO.value = "";*/
+        TASKLIST.insertAdjacentHTML("beforeend",
+        `
+            <section><img><label>${ADDTODO.value}</label><img src="assets/trash.svg"></section>
+        `);
+        /*MYELEMENT.appendChild(document.createElement("img"));
         MYELEMENT.appendChild(MYLABEL);
         MYELEMENT.appendChild(MYPICTURE);
         // Ajout de l'element a la liste de taches
-        TASKLIST.appendChild(MYELEMENT);
-        updateLocalStorage();
+        TASKLIST.appendChild(MYELEMENT);*/
         refreshEvent();
+        updateLocalStorage();
     }
 }
 
