@@ -12,7 +12,6 @@ TITLE.innerText = MYDATE.toLocaleString('en-EN', { weekday: 'long' })+", "+MYDAT
 // check et uncheck une tache
 function utlimCheck(MYCHECKTASK, MYLABEL) {
     (MYLABEL.classList == "check") ? MYCHECKTASK.src = "" : MYCHECKTASK.src = "assets/check.svg";
-    (MYLABEL.classList == "check") ? console.log("uncheck") : console.log("check");
     MYLABEL.classList.toggle("check");
     updateLocalStorage();
 }
