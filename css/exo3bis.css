@@ -1,0 +1,37 @@
+body {
+    margin: auto;
+    font-size: 0;
+}
+
+section {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid;
+    box-shadow: 5px 5px 5px 1px;
+    font-size: 16px;
+    margin-left: 1.6%;
+    margin-top: 40px;
+    border-radius: 15px;
+    width: 18%;
+    min-width: 200px;
+}
+
+section > h2 {
+    text-align: center;
+}
+
+section > ul {
+    list-style: none;
+}
+
+section > ul > li::first-letter {
+    text-transform: capitalize;
+}
+
+section > ul > li {
+    margin-bottom: 10px;
+}
+
+section > ul > li > li {
+    margin-top: 10px;
+}
