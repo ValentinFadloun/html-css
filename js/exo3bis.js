@@ -9,7 +9,7 @@ let fetchOption = {
 }
 
 const fetchUsers = () => {
-    fetch("https://jsonplaceholder.typicode.com/users", fetchOption)
+    fetch("https://jsonplaceholder.typicode.com/comments", fetchOption)
     .then(resp => resp.text())
     .then(body => {
         body = JSON.parse(body);  
